@@ -11,21 +11,29 @@ import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class StudyTest {
+// 아래와 같이 클래스 어노테이션 설정을 junit-plaform.properties 설정 파일로 대신 할 수 있음
+//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) // 하나의 인스터트를 바로보게 되어 자원이 공유됨
+class StudyTest01 {
+
 
     @DisplayName("스터디 만들기 - Tag fast")
 //    @Tag("fast")    // Run/Debug Configurations 에서 Test Kind : Tags, Tag expressions: fast 설정 시 해당 테스트만 실행
     @FastTest
     void create_new_tag_fast() {
         System.out.println("fast");
+        Study actual = new Study(100);
+        assertThat(actual.getLimit()).isGreaterThan(0);
     }
 
     @DisplayName("스터디 만들기 - Tag slow")
@@ -44,6 +52,8 @@ class StudyTest {
     @DisplayName("스터디 만들기 - ParameterizedTest")
     @ParameterizedTest(name = "{index} {displayName} message = {0}")
     @ValueSource(strings = {"날씨가", "많이", "추워지고", "있네요."})
+    @EmptySource    // 추가로 공백이 파라미터에 들어옴
+    @NullSource     // 추가로 null이 파라미터에 들어옴
     void parameterizedTest(String message) {
         System.out.println(message);
     }

@@ -34,15 +34,12 @@ public class StudyService {
         return null;
     }
 
+    // practice
     public Study openStudy(Study study) {
         study.open();
-//        Study openedStudy = repository.save(study);
-//        memberService.notify(openedStudy);
-//        return openedStudy;
-        return null;
+        Study openedStudy = repository.save(study);
+        memberService.notify(openedStudy);
+        return openedStudy;
     }
 
-    public void hi() {
-
-    }
 }

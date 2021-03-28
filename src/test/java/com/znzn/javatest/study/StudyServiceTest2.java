@@ -56,8 +56,6 @@ class StudyServiceTest2 {
 //        assertNotNull(study.getOwner());
 //        assertEquals(member, study.getOwner());
 
-
-
         }
 
 
